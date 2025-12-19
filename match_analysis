@@ -106,3 +106,18 @@ select
   group by team_name;
 
 
+--``Calculate points earned by home teams (Win = 3, Draw = 1)`--
+
+select
+t.team_name,
+sum(
+	case
+		when m.home_score>m.away_score then 3
+        when m.home_score=m.away_score then 1
+        else 0
+        end
+        )as points
+ from matches m
+ join teams t on m.home_team =t.team_id
+ group by t.team_name;
+
